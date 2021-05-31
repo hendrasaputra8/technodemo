@@ -14,6 +14,10 @@ node {
           sh 'npm test'
       }
 
+      stage('Test e2e') { 
+          sh 'npm run test:e2e'
+      }
+
       stage('Deploy') {
         withCredentials([string(credentialsId: 'heroku-token', variable: 'TOKEN')]) {
             sh 'git push https://:${TOKEN}@git.heroku.com/techno-app.git HEAD:main'
