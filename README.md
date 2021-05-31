@@ -1,33 +1,56 @@
-# express-app-testing-demo
+# JavaScript Unit Testing Examples
 
-This project is a simple express app for demonstrating testing and code coverage.
-[Jest](https://facebook.github.io/jest/) and
-[Supertest](https://github.com/visionmedia/supertest) are used for testing.
-Jest is also used for mocking functions and measuring code coverage.
-Note that this app only focuses on server-side JavaScript testing.
+Example project to allow me to show how best to unit test a JavaScript Express application.
 
+## Install
 
-## Requirements
+Clone this repository and install the dependencies as follows:
 
-* Node.js - [https://nodejs.org/](https://nodejs.org/)
+```
+git clone git@github.com:MarcL/js-unit-testing-framework.git
+npm install
+```
 
+## Running the tests
 
-## Getting Started
+The code sets up a basic Express server with a few routes and some tests which cover testing the server setup. Run the test suite using npm:
 
-* Clone the repo
-* Install dependencies with `npm install`
-* Run server with `npm start` and go here:
-[http://localhost:3000/](http://localhost:3000/)
+```
+npm test
+```
 
+## JavaScript Tests
 
-## Running Tests
+Take a look in the `test` directory to see all of the test code. There are lots of examples of different types of tests and how to create them.
 
-* Run unit and integration tests: `npm test`
-* Run end-to-end tests: `npm run test:e2e`
+### Asynchronous functions and promises
 
-## Code Coverage Report
+Some examples of how to test asynchronous functions and promises, including some tips and tricks and gotchas.
 
-A new code coverage report is generated every time `npm test` runs.
-Normally this coverage report is ignored by git.
-This project includes it in source control so the coverage report can be viewed in the demo app:
-[http://express-app-testing-demo.herokuapp.com/coverage/lcov-report/index.html](http://express-app-testing-demo.herokuapp.com/coverage/lcov-report/index.html)
+#### Asynchronous function
+- Timeout because `done` callback isn't called when function succeeds
+- Passing test but slow because timer isn't stubbed
+- Passing test and fast because timer is stubbed
+- Timeout because `done` callback isn't called when function throws an error
+- Passing test to call `done` callback when function throws an error
+
+#### Promise : resolving
+- Test passes incorrectly because Promise isn't returned
+- Passing test because promise is returned
+- Passing test because `done` callback is called after resolution
+- Passing test because `done` callback is called after resolution using `chai-as-promised` syntax
+
+#### Promise : rejecting
+- Test passes incorrectly because Promise isn't returned
+- Failing test because rejected Promise error isn't caught
+- Passing test because Promise is returned and rejection is caught
+- Passing test because Promise rejection is caught and `done` callback is called
+- Passing test because Promise rejection is caught and `done` callback is called using `chai-as-promised` syntax
+
+#### Slow tests
+- Passing test but is slow due to Promise function in chain taking a long time
+- Passing test and much faster as longer function is now stubbed to execute immediately
+
+## License
+
+See [LICENSE](LICENSE)

@@ -10,13 +10,9 @@ node {
           sh 'npm install'
       }
 
- //     stage('Test') {
- //         sh 'npm test'
- //     }
-
- //     stage('Test e2e') { 
- //         sh 'npm run test:e2e'
- //     }
+      stage('Test') {
+          sh 'npm test'
+      }
 
       stage('Deploy') {
         withCredentials([string(credentialsId: 'heroku-token', variable: 'TOKEN')]) {
